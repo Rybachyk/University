@@ -1,0 +1,31 @@
+﻿@model University.Models.DataBaseModels.Student
+
+<h1>Edit Student</h1>
+
+<form asp-controller="Student" asp-action="EditStudent" method="post">
+    <input type="hidden" asp-for="Id" />
+    
+    <div class="form-group">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <label for="groupId">Group:</label>
+        <select id="groupId" name="GroupId" class="form-control">
+            @foreach (var group in ViewBag.Groups)
+            {
+                <option value="@group.Id">@group.Name</option>
+            } 
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

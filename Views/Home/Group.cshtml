@@ -1,0 +1,52 @@
+﻿@model IEnumerable<University.Models.DataBaseModels.Group>
+
+@{
+    ViewData["Title"] = "Group Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">List of Groups</h1>
+    @if (!Model.Any())
+    {
+        <p>No groups available.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var group in Model)
+                {
+                    <tr>
+                        <td>@group.Name</td>
+                        <td>
+                            <form asp-controller="Group" asp-action="EditGroup" method="get">
+                                <input type="hidden" name="id" value="@group.Id" />
+                                <button type="submit">Edit</button>
+                            </form>
+                            <form asp-controller="Group" asp-action="Delete" method="post">
+                                <input type="hidden" name="id" value="@group.Id" />
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+<div class="text-center">
+    <h2 class="mt-4">Add New Group</h2>
+    <form method="post" action="/Group/Create">
+        <div class="form-group">
+            <label for="Name">Name:</label>
+            <input type="text" id="Name" name="Name" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Add Group</button>
+    </form>
+</div>

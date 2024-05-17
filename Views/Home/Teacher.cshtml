@@ -1,0 +1,58 @@
+﻿@model IEnumerable<University.Models.DataBaseModels.Teacher>
+
+@{
+    ViewData["Title"] = "Teacher Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">List of Teachers</h1>
+    @if (!Model.Any())
+    {
+        <p>No teachers available.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var teacher in Model)
+                {
+                    <tr>
+                        <td>@teacher.FirstName</td>
+                        <td>@teacher.LastName</td>
+                        <td>
+                            <form asp-controller="Teacher" asp-action="EditTeacher" method="get">
+                                <input type="hidden" name="id" value="@teacher.Id" />
+                                <button type="submit">Edit</button>
+                            </form>
+                            <form asp-controller="Teacher" asp-action="Delete" method="post">
+                                <input type="hidden" name="id" value="@teacher.Id" />
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+<div class="text-center">
+    <h2 class="mt-4">Add New Teacher</h2>
+    <form method="post" action="/Teacher/Create">
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="FirstName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="LastName" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Add Teacher</button>
+    </form>
+</div>
